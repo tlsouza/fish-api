@@ -2,7 +2,9 @@ package repository
 
 import (
 	db_types "api/app/types/db"
+	http_types "api/app/types/http_requests"
 	"fmt"
+	"sort"
 	"sync"
 )
 
@@ -52,7 +54,7 @@ func (fr *FishRepository) GetFishDetail(id string) (*db_types.Fish, error) {
 	return nil, fmt.Errorf("recordNotFound")
 }
 
-func (fr *FishRepository) ListFish(limit int, page int) []db_types.Fish {
+func (fr *FishRepository) ListFish(query http_types.QueryParams) []db_types.Fish {
 	fr.mu.Lock()
 	defer fr.mu.Unlock()
 
@@ -65,7 +67,7 @@ func (fr *FishRepository) ListFish(limit int, page int) []db_types.Fish {
 	}
 
 	// Calculate the offset based on the page
-	offset := (page - 1) * limit
+	offset := (query.Page - 1) * query.Limit
 
 	// Handle out of bounds offsets
 	if offset > len(activeFish) {
@@ -73,10 +75,30 @@ func (fr *FishRepository) ListFish(limit int, page int) []db_types.Fish {
 	}
 
 	// Determine the end index based on limit and offset
-	end := offset + limit
+	end := offset + query.Limit
 	if end > len(activeFish) {
 		end = len(activeFish) // adjust if end exceeds the number of active fish
 	}
 
-	return activeFish[offset:end] // return the paginated and filtered slice
+	result := orderFishListByDate(activeFish[offset:end], query.OrderByCreatedAt, query.Asc)
+	// return the paginated and filtered slice
+
+	return result
+}
+
+func orderFishListByDate(fishList []db_types.Fish, orderByDate bool, Asc bool) []db_types.Fish {
+	if orderByDate {
+		sort.Slice(fishList, func(i, j int) bool {
+			a := fishList[i]
+			b := fishList[j]
+
+			if Asc {
+				return a.CreatedAt.Before(b.CreatedAt)
+			}
+
+			return a.CreatedAt.After(b.CreatedAt)
+
+		})
+	}
+	return fishList
 }

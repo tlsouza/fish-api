@@ -13,5 +13,5 @@ type IGetFishDetailsService interface {
 }
 
 type IListFishService interface {
-	ListFish(limit int, page int) *http_types.FishListResponse
+	ListFish(http_types.QueryParams) *http_types.FishListResponse
 }

@@ -10,11 +10,11 @@ type listFishService struct {
 	repo repository.IFishRepository
 }
 
-func (lfs *listFishService) ListFish(limit int, page int) *http_types.FishListResponse {
-	fishList := lfs.repo.ListFish(limit, page)
+func (lfs *listFishService) ListFish(query http_types.QueryParams) *http_types.FishListResponse {
+	fishList := lfs.repo.ListFish(query)
 	return &http_types.FishListResponse{
-		Limit: limit,
-		Page:  page,
+		Limit: query.Limit,
+		Page:  query.Page,
 		Fish:  MapFishToFishListItemResponse(fishList),
 	}
 }

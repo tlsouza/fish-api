@@ -32,3 +32,10 @@ type FishListResponse struct {
 	Page  int                    `json:"page"`
 	Limit int                    `json:"limit"`
 }
+
+type QueryParams struct {
+	Limit            int
+	Page             int
+	OrderByCreatedAt bool
+	Asc              bool
+}

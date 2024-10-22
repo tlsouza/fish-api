@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"api/app/services"
+	http_types "api/app/types/http_requests"
 	"api/pkg/errors"
 	"api/pkg/ports/types"
 	"strconv"
@@ -18,10 +19,15 @@ func NewListFishControler(svc services.IListFishService) listControler {
 }
 
 func (fc *listControler) ListFish(rd types.RequestData) (interface{}, *errors.HttpError) {
-	limitAsInt := getIntFromQuery(rd.Query, "limit", DEFAULT_LIMIT)
-	pageAsInt := getIntFromQuery(rd.Query, "page", DEFEAULT_PAGE)
+	orderByDate, Asc := getOrderByDateAndAsc(rd.Query)
+	params := http_types.QueryParams{
+		Limit:            getIntFromQuery(rd.Query, "limit", DEFAULT_LIMIT),
+		Page:             getIntFromQuery(rd.Query, "page", DEFEAULT_PAGE),
+		OrderByCreatedAt: orderByDate,
+		Asc:              Asc,
+	}
 
-	fishResponseList := fc.svc.ListFish(limitAsInt, pageAsInt)
+	fishResponseList := fc.svc.ListFish(params)
 
 	return fishResponseList, nil
 }
@@ -33,4 +39,17 @@ func getIntFromQuery(query map[string]string, key string, defaultValue int) int 
 		return numberAsInt
 	}
 	return defaultValue
+}
+
+func getOrderByDateAndAsc(query map[string]string) (bool, bool) {
+	sortParam, exists := query["sort"]
+	if exists {
+		if sortParam == "created_at" {
+			return true, true
+		} else {
+			return true, false
+		}
+	}
+
+	return true, true
 }
