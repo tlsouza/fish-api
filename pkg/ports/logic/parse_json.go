@@ -4,6 +4,7 @@ import (
 	"api/pkg/log"
 	"context"
 	"encoding/json"
+	"reflect"
 )
 
 func ParseJSON[T any](input any, ctx context.Context) (result T, err error) {
@@ -28,4 +29,12 @@ func Unmarshal[T any](input []byte, ctx context.Context) (result T, err error) {
 	}
 
 	return
+}
+
+func GetJSONFieldName(field reflect.StructField) string {
+	jsonTag := field.Tag.Get("json")
+	if jsonTag == "" {
+		return field.Name // If no JSON tag is found, fallback to the field name
+	}
+	return jsonTag
 }
