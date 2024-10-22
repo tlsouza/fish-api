@@ -18,6 +18,7 @@ type FishDetailResponse struct {
 	CreatedAt   time.Time `json:"created_at"`   // Creation timestamp
 	UpdatedAt   time.Time `json:"updated_at"`   // Last update timestamp
 	ImageURL    *string   `json:"image_url"`    // url for the fish image
+	IsVerified  bool      `json:"is_verified"`  // indicated if the SpeciesName is a common fish name
 }
 
 type FishListItemResponse struct {
@@ -25,6 +26,7 @@ type FishListItemResponse struct {
 	SpeciesName string   `json:"species_name"` // Required species name of the fish
 	Lifespan    *int     `json:"lifespan"`     // Optional lifespan in years
 	Length      *float64 `json:"length"`       // Optional length in mm
+	IsVerified  bool     `json:"is_verified"`  // indicated if the SpeciesName is a common fish name
 }
 
 type FishListResponse struct {

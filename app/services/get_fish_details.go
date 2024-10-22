@@ -3,7 +3,7 @@ package services
 import (
 	"api/app/repository"
 	db_types "api/app/types/db"
-	http_types "api/app/types/http_requests"
+	http_types "api/app/types/http_types"
 )
 
 type getFishDetailService struct {
@@ -36,5 +36,6 @@ func mapFishToFishDetailResponse(fish *db_types.Fish) *http_types.FishDetailResp
 		CreatedAt:   fish.CreatedAt,
 		UpdatedAt:   fish.UpdatedAt,
 		ImageURL:    fish.ImageURL,
+		IsVerified:  fish.IsVerified,
 	}
 }

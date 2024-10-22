@@ -3,7 +3,7 @@ package services
 import (
 	"api/app/repository"
 	db_types "api/app/types/db"
-	http_types "api/app/types/http_requests"
+	http_types "api/app/types/http_types"
 )
 
 type listFishService struct {
@@ -35,6 +35,7 @@ func MapFishToFishListItemResponse(fishSlice []db_types.Fish) []http_types.FishL
 			SpeciesName: fish.SpeciesName,
 			Lifespan:    fish.Lifespan,
 			Length:      fish.Length,
+			IsVerified:  fish.IsVerified,
 		}
 
 		responseSlice = append(responseSlice, response)

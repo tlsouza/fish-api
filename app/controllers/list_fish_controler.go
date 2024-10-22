@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"api/app/services"
-	http_types "api/app/types/http_requests"
+	http_types "api/app/types/http_types"
 	"api/pkg/errors"
 	"api/pkg/ports/types"
 	"strconv"
@@ -44,11 +44,7 @@ func getIntFromQuery(query map[string]string, key string, defaultValue int) int 
 func getOrderByDateAndAsc(query map[string]string) (bool, bool) {
 	sortParam, exists := query["sort"]
 	if exists {
-		if sortParam == "created_at" {
-			return true, true
-		} else {
-			return true, false
-		}
+		return true, sortParam == "created_at"
 	}
 
 	return true, true

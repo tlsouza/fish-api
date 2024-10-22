@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"api/app/services"
-	http_types "api/app/types/http_requests"
+	http_types "api/app/types/http_types"
 	"api/pkg/errors"
 	"api/pkg/ports/logic"
 	"api/pkg/ports/types"

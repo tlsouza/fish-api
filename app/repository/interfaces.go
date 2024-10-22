@@ -2,7 +2,7 @@ package repository
 
 import (
 	db_types "api/app/types/db"
-	http_types "api/app/types/http_requests"
+	http_types "api/app/types/http_types"
 )
 
 type IFishRepository interface {

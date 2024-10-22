@@ -2,7 +2,7 @@ package repository
 
 import (
 	db_types "api/app/types/db"
-	http_types "api/app/types/http_requests"
+	http_types "api/app/types/http_types"
 	"fmt"
 	"sort"
 	"sync"
@@ -89,15 +89,11 @@ func (fr *FishRepository) ListFish(query http_types.QueryParams) []db_types.Fish
 func orderFishListByDate(fishList []db_types.Fish, orderByDate bool, Asc bool) []db_types.Fish {
 	if orderByDate {
 		sort.Slice(fishList, func(i, j int) bool {
-			a := fishList[i]
-			b := fishList[j]
-
 			if Asc {
-				return a.CreatedAt.Before(b.CreatedAt)
+				return fishList[i].CreatedAt.Before(fishList[j].CreatedAt)
 			}
 
-			return a.CreatedAt.After(b.CreatedAt)
-
+			return fishList[i].CreatedAt.After(fishList[j].CreatedAt)
 		})
 	}
 	return fishList

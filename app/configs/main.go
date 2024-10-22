@@ -5,4 +5,5 @@ import (
 	_ "api/pkg/dotenv"
 )
 
-var DATABASE_URL = Get("DATABASE_URL", "mongodb://fproot:xpto2318@localhost:27017/?readPreference=secondaryPreferred&retryWrites=false")
+var X_RAPIDAPI_KEY = Get("X_RAPIDAPI_KEY", "")
+var X_RAPIDAPI_HOST = Get("X_RAPIDAPI_HOST", "")
