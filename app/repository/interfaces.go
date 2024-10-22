@@ -9,4 +9,5 @@ type IFishRepository interface {
 	Save(fish db_types.Fish) (*string, error)
 	GetFishDetail(string) (*db_types.Fish, error)
 	ListFish(http_types.QueryParams) []db_types.Fish
+	DeleteFish(string) error
 }

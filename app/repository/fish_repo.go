@@ -86,6 +86,20 @@ func (fr *FishRepository) ListFish(query http_types.QueryParams) []db_types.Fish
 	return result
 }
 
+func (fr *FishRepository) DeleteFish(id string) error {
+	fr.mu.Lock()
+	defer fr.mu.Unlock()
+
+	for key, fish := range fr.fish {
+		// Find by Id and set flat IsDeleted to true
+		if fish.ID == id {
+			fr.fish[key].IsDeleted = true
+			return nil
+		}
+	}
+	return fmt.Errorf("recordNotFound")
+}
+
 func orderFishListByDate(fishList []db_types.Fish, orderByDate bool, Asc bool) []db_types.Fish {
 	if orderByDate {
 		sort.Slice(fishList, func(i, j int) bool {

@@ -15,3 +15,7 @@ type IGetFishDetailsService interface {
 type IListFishService interface {
 	ListFish(http_types.QueryParams) *http_types.FishListResponse
 }
+
+type IDeleteFishService interface {
+	DeleteFish(string) error
+}

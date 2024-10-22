@@ -20,8 +20,8 @@ func init() {
 		),
 	)
 
-	Addfish = types.HttpServerPort{
-		Name:       "add_fish",
+	ListFish = types.HttpServerPort{
+		Name:       "list_fish",
 		Path:       "fish",
 		Verb:       types.GET,
 		Adapter:    adapters.Fiber,
@@ -29,7 +29,7 @@ func init() {
 		Validator:  ListDetailsValidator,
 	}
 
-	Addfish.Start()
+	ListFish.Start()
 }
 
 func ListDetailsValidator(rd types.RequestData) *errors.HttpError {

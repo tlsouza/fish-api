@@ -12,28 +12,28 @@ import (
 	"github.com/google/uuid"
 )
 
-var FishDetails types.HttpServerPort
+var DeleteFish types.HttpServerPort
 
 func init() {
-	fishControler := controllers.NewFishDetailControler(
-		services.NewGetFishDetailService(
+	deleteFishControler := controllers.NewDeleteFishControler(
+		services.NewDeleteFishService(
 			repository.FishRepoInstance(),
 		),
 	)
 
-	FishDetails = types.HttpServerPort{
-		Name:       "fish_details",
+	DeleteFish = types.HttpServerPort{
+		Name:       "delete_fish",
 		Path:       "fish/:id",
-		Verb:       types.GET,
+		Verb:       types.DELETE,
 		Adapter:    adapters.Fiber,
-		Controller: fishControler.FishDetail,
-		Validator:  fishDetailsValidator,
+		Controller: deleteFishControler.DeleteFish,
+		Validator:  deleteFishValidator,
 	}
 
-	FishDetails.Start()
+	DeleteFish.Start()
 }
 
-func fishDetailsValidator(rd types.RequestData) *errors.HttpError {
+func deleteFishValidator(rd types.RequestData) *errors.HttpError {
 
 	idStr, exists := rd.PathParams["id"]
 
