@@ -9,4 +9,5 @@ type Fish struct {
 	CreatedAt   string   `json:"created_at"`            // Creation timestamp
 	UpdatedAt   string   `json:"updated_at"`            // Last update timestamp
 	IsDeleted   bool     `json:"is_deleted"`            // Indicates if the fish has been soft-deleted
+	ImageURL    *string  `json:"image_url"`             // url for the fish image
 }

@@ -10,10 +10,10 @@ import (
 )
 
 type fishControler struct {
-	svc services.IFishService
+	svc services.IAddFishService
 }
 
-func NewFishControler(fishService services.IFishService) fishControler {
+func NewAddFishControler(fishService services.IAddFishService) fishControler {
 	return fishControler{svc: fishService}
 }
 

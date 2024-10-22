@@ -9,11 +9,11 @@ import (
 	"github.com/google/uuid"
 )
 
-type fishService struct {
+type addFishService struct {
 	repo repository.IFishRepository
 }
 
-func (fs *fishService) AddFish(fish_request http_types.CreateFishRequest) (*string, error) {
+func (fs *addFishService) AddFish(fish_request http_types.CreateFishRequest) (*string, error) {
 	fish := MapCreateFishRequestToFish(&fish_request)
 	id, err := fs.repo.Save(fish)
 
@@ -23,7 +23,7 @@ func (fs *fishService) AddFish(fish_request http_types.CreateFishRequest) (*stri
 func MapCreateFishRequestToFish(request *http_types.CreateFishRequest) db_types.Fish {
 	currentTime := time.Now().Format(time.RFC3339)
 	return db_types.Fish{
-		ID:          uuid.New().String(), // Generate a new UUID for the ID
+		ID:          uuid.NewString(), // Generate a new UUID for the ID
 		SpeciesName: request.SpeciesName,
 		Description: request.Description,
 		Lifespan:    request.Lifespan,
@@ -34,8 +34,8 @@ func MapCreateFishRequestToFish(request *http_types.CreateFishRequest) db_types.
 	}
 }
 
-func NewFishService(fish_repo repository.IFishRepository) *fishService {
-	return &fishService{
+func NewAddFishService(fish_repo repository.IFishRepository) *addFishService {
+	return &addFishService{
 		repo: fish_repo,
 	}
 }

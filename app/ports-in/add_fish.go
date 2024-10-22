@@ -10,16 +10,13 @@ import (
 	"api/pkg/ports/logic"
 	"api/pkg/ports/types"
 	"fmt"
-
-	"github.com/go-playground/validator/v10"
 )
 
 var Addfish types.HttpServerPort
-var validate = validator.New()
 
 func init() {
-	fishControler := controllers.NewFishControler(
-		services.NewFishService(
+	fishControler := controllers.NewAddFishControler(
+		services.NewAddFishService(
 			repository.FishRepoInstance(),
 		),
 	)
