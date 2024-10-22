@@ -42,6 +42,10 @@ func UpdateFishValidator(rd types.RequestData) *errors.HttpError {
 		return errors.NewHttpError(fmt.Errorf("invalid body structure"), 400)
 	}
 
+	if req.FetchedAt == nil {
+		return errors.NewHttpError(fmt.Errorf("missing 'fetched_at' attribute in body"), 400)
+	}
+
 	err = validate.Struct(&req)
 	if err != nil {
 
@@ -59,7 +63,6 @@ func UpdateFishValidator(rd types.RequestData) *errors.HttpError {
 	err = uuid.Validate(idStr)
 
 	if err != nil {
-		fmt.Println(err)
 		return errors.BadRequestError(fmt.Errorf("provided id is not a valid UUID"))
 	}
 

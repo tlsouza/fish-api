@@ -4,6 +4,7 @@ import (
 	"api/app/repository"
 	db_types "api/app/types/db"
 	http_types "api/app/types/http_types"
+	"fmt"
 	"time"
 )
 
@@ -15,6 +16,10 @@ func (uf *updateFishService) UpdateFish(id string, fish_request http_types.Upser
 	currentFish, err := uf.repo.GetFishDetail(id)
 	if err != nil {
 		return err
+	}
+
+	if fish_request.FetchedAt.Before(currentFish.UpdatedAt) {
+		return fmt.Errorf("conflictUpdate")
 	}
 
 	updatedFish := BuildNewFish(currentFish, fish_request)

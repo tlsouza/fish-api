@@ -24,12 +24,14 @@ func (uc *updateFishControler) UpdateFish(rd types.RequestData) (interface{}, *e
 	err := uc.svc.UpdateFish(idStr, upsert)
 
 	if err != nil {
-		if err.Error() == "recordNotFound" {
+		switch errStr := err.Error(); errStr {
+		case "recordNotFound":
 			return nil, errors.NewHttpError(fmt.Errorf("fish  %s not found", idStr), 404)
+		case "conflictUpdate":
+			return nil, errors.NewHttpError(fmt.Errorf("an updated occoured since during edit"), 409)
+		default:
+			return nil, errors.NewHttpError(fmt.Errorf("internal error trying to update fish"), 500)
 		}
-
-		return nil, errors.NewHttpError(fmt.Errorf("internal error trying to update fish"), 500)
-
 	}
 
 	return "updated", nil
