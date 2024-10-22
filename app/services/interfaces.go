@@ -5,7 +5,7 @@ import (
 )
 
 type IAddFishService interface {
-	AddFish(http_types.CreateFishRequest) (*string, error)
+	AddFish(http_types.UpsertFishRequest) (*string, error)
 }
 
 type IGetFishDetailsService interface {
@@ -18,4 +18,8 @@ type IListFishService interface {
 
 type IDeleteFishService interface {
 	DeleteFish(string) error
+}
+
+type IUpdateFishService interface {
+	UpdateFish(string, http_types.UpsertFishRequest) error
 }

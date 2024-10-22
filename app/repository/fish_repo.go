@@ -112,3 +112,17 @@ func orderFishListByDate(fishList []db_types.Fish, orderByDate bool, Asc bool) [
 	}
 	return fishList
 }
+
+func (fr *FishRepository) UpdateFish(updatedFish *db_types.Fish) error {
+	fr.mu.Lock()
+	defer fr.mu.Unlock()
+
+	for key, fish := range fr.fish {
+		// Find by Id condering only non-deleted fish
+		if fish.ID == updatedFish.ID && !fish.IsDeleted {
+			fr.fish[key] = *updatedFish
+			return nil
+		}
+	}
+	return fmt.Errorf("recordNotFound")
+}

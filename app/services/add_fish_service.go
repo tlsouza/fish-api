@@ -19,7 +19,7 @@ type addFishService struct {
 	repo repository.IFishRepository
 }
 
-func (fs *addFishService) AddFish(fish_request http_types.CreateFishRequest) (*string, error) {
+func (fs *addFishService) AddFish(fish_request http_types.UpsertFishRequest) (*string, error) {
 	fish := MapCreateFishRequestToFish(&fish_request)
 	fish.ImageURL, fish.IsVerified = veriryFishNameAndImage(fish.SpeciesName)
 
@@ -28,7 +28,7 @@ func (fs *addFishService) AddFish(fish_request http_types.CreateFishRequest) (*s
 	return id, err
 }
 
-func MapCreateFishRequestToFish(request *http_types.CreateFishRequest) db_types.Fish {
+func MapCreateFishRequestToFish(request *http_types.UpsertFishRequest) db_types.Fish {
 	currentTime := time.Now()
 	return db_types.Fish{
 		ID:          uuid.NewString(),

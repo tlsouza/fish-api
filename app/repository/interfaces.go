@@ -10,4 +10,5 @@ type IFishRepository interface {
 	GetFishDetail(string) (*db_types.Fish, error)
 	ListFish(http_types.QueryParams) []db_types.Fish
 	DeleteFish(string) error
+	UpdateFish(*db_types.Fish) error
 }

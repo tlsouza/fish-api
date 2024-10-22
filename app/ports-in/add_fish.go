@@ -34,7 +34,7 @@ func init() {
 }
 
 func addFishValidator(rd types.RequestData) *errors.HttpError {
-	req, err := logic.Unmarshal[http_types.CreateFishRequest](rd.BodyByte, rd.Ctx)
+	req, err := logic.Unmarshal[http_types.UpsertFishRequest](rd.BodyByte, rd.Ctx)
 
 	if err != nil {
 		return errors.NewHttpError(fmt.Errorf("invalid body structure"), 400)
@@ -43,7 +43,7 @@ func addFishValidator(rd types.RequestData) *errors.HttpError {
 	err = validate.Struct(&req)
 	if err != nil {
 
-		return errors.NewHttpError(logic.GetRequiredFieldError[http_types.CreateFishRequest](
+		return errors.NewHttpError(logic.GetRequiredFieldError[http_types.UpsertFishRequest](
 			err,
 			&req,
 		), 400)

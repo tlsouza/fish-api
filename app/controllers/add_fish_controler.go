@@ -18,7 +18,7 @@ func NewAddFishControler(fishService services.IAddFishService) addFishControler 
 }
 
 func (fc *addFishControler) AddFish(rd types.RequestData) (interface{}, *errors.HttpError) {
-	add_fish_req, _ := logic.Unmarshal[http_types.CreateFishRequest](rd.BodyByte, rd.Ctx)
+	add_fish_req, _ := logic.Unmarshal[http_types.UpsertFishRequest](rd.BodyByte, rd.Ctx)
 
 	id, err := fc.svc.AddFish(add_fish_req)
 

@@ -2,7 +2,7 @@ package http_types
 
 import "time"
 
-type CreateFishRequest struct {
+type UpsertFishRequest struct {
 	SpeciesName string   `json:"species_name" validate:"required"` // Required species name of the fish
 	Description *string  `json:"description,omitempty"`            // Optional description, omitempty allows it to be omitted if nil
 	Lifespan    *int     `json:"lifespan,omitempty"`               // Optional lifespan in years
