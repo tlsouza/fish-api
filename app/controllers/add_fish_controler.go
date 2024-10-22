@@ -9,15 +9,15 @@ import (
 	"fmt"
 )
 
-type fishControler struct {
+type addFishControler struct {
 	svc services.IAddFishService
 }
 
-func NewAddFishControler(fishService services.IAddFishService) fishControler {
-	return fishControler{svc: fishService}
+func NewAddFishControler(fishService services.IAddFishService) addFishControler {
+	return addFishControler{svc: fishService}
 }
 
-func (fc *fishControler) AddFish(rd types.RequestData) (interface{}, *errors.HttpError) {
+func (fc *addFishControler) AddFish(rd types.RequestData) (interface{}, *errors.HttpError) {
 	add_fish_req, _ := logic.Unmarshal[http_types.CreateFishRequest](rd.BodyByte, rd.Ctx)
 
 	id, err := fc.svc.AddFish(add_fish_req)

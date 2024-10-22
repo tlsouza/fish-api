@@ -6,5 +6,6 @@ import (
 
 type IFishRepository interface {
 	Save(fish db_types.Fish) (*string, error)
-	GetFishDetail(id string) (*db_types.Fish, error)
+	GetFishDetail(string) (*db_types.Fish, error)
+	ListFish(limit int, page int) []db_types.Fish
 }

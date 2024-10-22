@@ -11,3 +11,7 @@ type IAddFishService interface {
 type IGetFishDetailsService interface {
 	GetFishDetails(string) (*http_types.FishDetailResponse, error)
 }
+
+type IListFishService interface {
+	ListFish(limit int, page int) *http_types.FishListResponse
+}

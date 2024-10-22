@@ -21,16 +21,16 @@ func (fs *addFishService) AddFish(fish_request http_types.CreateFishRequest) (*s
 }
 
 func MapCreateFishRequestToFish(request *http_types.CreateFishRequest) db_types.Fish {
-	currentTime := time.Now().Format(time.RFC3339)
+	currentTime := time.Now()
 	return db_types.Fish{
-		ID:          uuid.NewString(), // Generate a new UUID for the ID
+		ID:          uuid.NewString(),
 		SpeciesName: request.SpeciesName,
 		Description: request.Description,
 		Lifespan:    request.Lifespan,
 		Length:      request.Length,
-		CreatedAt:   currentTime, // Set Createdat to the current time
-		UpdatedAt:   currentTime, // Set UpdatedAt to the current time (same as CreatedAt initialy)
-		IsDeleted:   false,       // Set Isdeleted to false
+		CreatedAt:   currentTime,
+		UpdatedAt:   currentTime,
+		IsDeleted:   false,
 	}
 }
 
