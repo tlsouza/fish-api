@@ -13,3 +13,9 @@ To run this project locally, follow these steps:
 
    ```bash
    ./main
+
+2. **To use the third-party fish api([name validation](https://rapidapi.com/myapos--FqlEzvrlv/api/fish-species)), its necessary to export the following env variable:**
+
+   ```bash
+   X_RAPIDAPI_KEY = ""
+   X_RAPIDAPI_HOST = "fish-species.p.rapidapi.com"
